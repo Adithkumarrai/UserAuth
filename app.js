@@ -4,9 +4,13 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require('dotenv').config();
 const { createUserTable } = require('./models/userModels');
-
+const adminRoutes = require('./routes/adminRoutes');
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const { createFoodTable } = require('./models/foodModel');
 
 const app = express();
+app.use(express.static('public/CSS'));
 const PORT = process.env.PORT || 3000;
 
 
@@ -28,16 +32,14 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // Routes
-// const adminRoutes = require('./routes/adminRoutes');
-const authRoutes = require('./routes/authRoutes');
-// const userRoutes = require('./routes/userRoutes');
 app.use('/', authRoutes);
-// app.use('/', adminRoutes);
-// app.use('/', userRoutes);
+app.use('/admin', adminRoutes);
+app.use('/user', userRoutes);
 
 
 // Schema creation
 createUserTable(); // Call this after setting up middlewares
+createFoodTable();
 
 
 // Server
