@@ -77,7 +77,7 @@ const transporter = nodemailer.createTransport({
 
 // Renders signup form
 exports.getSignup = (req, res) => {
-  res.render('pages/signup', { message: null });
+  res.render('Pages/signup', { message: null });
 };
 
 
@@ -90,7 +90,7 @@ exports.postSignup = async (req, res) => {
     // Check if email exists
     const existingUser = await db.oneOrNone('SELECT * FROM users WHERE email = $1', [email]);
     if (existingUser) {
-      return res.render('pages/signup', { message: 'Email already registered!' });
+      return res.render('Pages/signup', { message: 'Email already registered!' });
     }
 
 
